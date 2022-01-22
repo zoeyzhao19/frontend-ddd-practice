@@ -1,4 +1,6 @@
-import { INotificationService } from "@/application/ports";
+interface INotificationService {
+  notify(message: string): void;
+}
 
 export function useNotifier(): INotificationService {
   return {
