@@ -9,3 +9,7 @@ export type CartProduct = {
 export type Cart = {
   products: CartProduct[];
 };
+
+export function contains(cart: Cart, product: CartProduct): boolean {
+  return cart.products.some(({ id }) => id === product.id);
+}

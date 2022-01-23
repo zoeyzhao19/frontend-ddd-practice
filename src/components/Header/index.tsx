@@ -1,25 +1,28 @@
 import { Link } from "react-router-dom";
-import { useUserStore } from "@/modules/auth/services";
-import styles from "./Header.module.css";
+import { useGlobalStore } from "@/shared/services";
+import { useLocation } from 'react-router-dom';
+import styles from "./index.module.css";
 
 export function Header() {
-  const { user } = useUserStore();
+  const { user } = useGlobalStore();
+  const location = useLocation();
+  console.log('location', location);
   // const { cart } = useCartStorage();
 
   return (
-    <header className={styles.header}>
+    <div className={styles.header}>
       <Link className={styles.logo} to="/">
         Co0o0o0o0okie!!!1 🍪
       </Link>
-
-      {!user ? (
+      {
+        user && <Link to="/user">
+        {user.name}
+        {/* {user.name} ({cart.products.length}) */}
+      </Link>
+      }
+      {!user && location.pathname !== '/auth' && 
         <Link to="/auth">Log in</Link>
-      ) : (
-        <Link to="/user">
-          {user.name}
-          {/* {user.name} ({cart.products.length}) */}
-        </Link>
-      )}
-    </header>
+      }
+    </div>
   );
 }

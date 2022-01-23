@@ -1,4 +1,4 @@
-import { Cart, CartProduct } from './cart'
+import { Cart } from './cart'
 import { User } from './user'
 
 export type OrderStatus = "new" | "delivery" | "completed";
@@ -8,21 +8,15 @@ export type Order = {
   cart: Cart;
   created: string;
   status: OrderStatus;
+  total: number;
 };
 
-export function addProduct(cart: Cart, product: CartProduct): Cart {
-  return { ...cart, products: [...cart.products, product] }
-}
-
-export function contains(cart: Cart, product: CartProduct): boolean {
-  return cart.products.some(({ id }) => id === product.id);
-}
-
-export function createOrder(user: User, cart: Cart): Order {
+export function createOrder(user: User, cart: Cart, total: number): Order {
   return {
     user: user.id,
     cart,
     created: new Date().toISOString(),
     status: "new",
+    total: total,
   };
 }

@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import {useOrderProducts} from '@/modules/orders/application'
-import {useUserStorage, useCartStorage} from '@/modules/orders/services';
-import styles from "./Buy.module.css";
+import {useGlobalStore} from '@/shared/services';
+import styles from "./index.module.css";
 
 export function Buy() {
   const { orderProducts } = useOrderProducts();
-  const { user } = useUserStorage();
-  const { cart } = useCartStorage();
+  const { user, cart } = useGlobalStore();
 
   const [name, setName] = useState<string>(user?.name ?? "");
   const [email, setEmail] = useState<string>(user?.email ?? "");
@@ -16,7 +15,7 @@ export function Buy() {
   async function handleSubmit(e: React.FormEvent) {
     setLoading(true);
     e.preventDefault();
-    await orderProducts(user!, cart);
+    await orderProducts();
     setLoading(false);
   }
 

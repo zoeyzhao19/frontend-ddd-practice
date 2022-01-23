@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthenticate } from "@/modules/auth/application";
-import styles from "./Auth.module.css";
+import styles from "./index.module.css";
 
-export function Auth() {
+export function Auth(): JSX.Element {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
   const { user, authenticate } = useAuthenticate();
-  if (!!user) return navigate('/', {replace: true});
+  if (!!user) navigate('/', {replace: true});
 
   async function handleSubmit(e: React.FormEvent) {
     setLoading(true);
     e.preventDefault();
-
     await authenticate(name, email);
     setLoading(false);
   }
