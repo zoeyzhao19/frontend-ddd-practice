@@ -1,5 +1,5 @@
-import { Cart } from './cart'
-import { User } from './user'
+import { Cart } from '@/modules/products/domain/cart'
+import { User } from '@/modules/auth/domain/user'
 
 export type OrderStatus = "new" | "delivery" | "completed";
 
